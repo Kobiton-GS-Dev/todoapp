@@ -1,7 +1,7 @@
-import React, {PropsTypes} from 'react'
+import React, { PropsTypes } from 'react'
 import styled from 'styled-components'
 
-const Wrapper = styled.div`
+const Wrapper = styled.h1`
   display: flex;
   justify-content: center;
   align-items: center;

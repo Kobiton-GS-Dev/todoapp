@@ -10,7 +10,8 @@
     "lint": "eslint --ext js,jsx src/",
     "lint:fix": "eslint --fix --ext js,jsx src/",
     "prettier": "prettier --check \"src/**/(*.jsx|*.js|*.scss|*.css)\"",
-    "prettier:fix": "prettier --write \"src/**/(*.jsx|*.js|*.scss|*.css)\""
+    "prettier:fix": "prettier --write \"src/**/(*.jsx|*.js|*.scss|*.css)\"",
+    "test": "jest"
   },
   "author": "Hong La <hongla@kms-technology.com> and Nhat Nam",
   "license": "MIT",
@@ -22,9 +23,12 @@
     "@babel/preset-react": "^7.14.5",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "babel-jest": "^27.0.5",
     "babel-loader": "^8.2.2",
     "babel-plugin-styled-components": "^1.12.0",
     "css-loader": "^5.2.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "^7.29.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -38,9 +42,11 @@
     "html-webpack-plugin": "^5.3.2",
     "husky": "^6.0.0",
     "image-webpack-loader": "^7.0.1",
+    "jest": "^27.0.5",
     "node-sass": "^6.0.1",
     "path": "^0.12.7",
     "prettier": "^2.3.2",
+    "react-test-renderer": "16.14.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.0.0",
     "webpack": "5.40.0",
@@ -48,8 +54,8 @@
     "webpack-dev-server": "3.11.2"
   },
   "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
     "styled-components": "^5.3.0"
   }
 }
