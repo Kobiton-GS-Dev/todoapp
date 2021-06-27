@@ -4,9 +4,13 @@
   "main": "index.js",
   "repository": "git@github.com:Kobiton-GS-Dev/todoapp.git",
   "scripts": {
-    "webpack": "webpack",
-    "start": "webpack serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "build:analyze": "webpack --mode production --env analyze",
+    "lint": "eslint --ext js,jsx src/",
+    "lint:fix": "eslint --fix --ext js,jsx src/",
+    "prettier": "prettier --check \"src/**/(*.jsx|*.js|*.scss|*.css)\"",
+    "prettier:fix": "prettier --write \"src/**/(*.jsx|*.js|*.scss|*.css)\""
   },
   "author": "Hong La <hongla@kms-technology.com> and Nhat Nam",
   "license": "MIT",
