@@ -2,6 +2,7 @@ import React, { PropsTypes } from 'react'
 import styled from 'styled-components'
 import Header from './Header'
 import TasksList from './TasksList'
+import Footer from './Footer'
 
 const Wrapper = styled.div`
   width: 500px;
@@ -16,6 +17,7 @@ const TodoApp = () => {
     <Wrapper>
       <Header />
       <TasksList />
+      <Footer />
     </Wrapper>
   )
 }

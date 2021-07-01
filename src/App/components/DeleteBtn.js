@@ -2,6 +2,7 @@ import React ,{ memo } from 'react'
 import styled from 'styled-components'
 
 export const DeleteButton = styled.button`
+  display: none;
   position: absolute;
   top: 0;
   right: 10px;
@@ -13,4 +14,8 @@ export const DeleteButton = styled.button`
   color: #cc9a9a;
   margin-bottom: 11px;
   transition: color 0.2s ease-out;
+
+  &:after {
+    content: '×';
+  }
 `

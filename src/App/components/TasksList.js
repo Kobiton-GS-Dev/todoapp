@@ -1,6 +1,7 @@
 import React ,{ memo } from 'react'
 import styled from 'styled-components'
 import Tasks from './Tasks'
+import ToggleAllButton from './ToggleAll'
 
 const TaskContainer = styled.section`
   position: relative;
@@ -16,8 +17,7 @@ const List = styled.ul`
 const TasksList = memo((props) => {
   return (
     <TaskContainer>
-      {/* <input className = "toggle-all"/>
-      <label htmlFor = "toggle-all"></label> */}
+      <ToggleAllButton />
       <List>
         <Tasks/>
       </List>
