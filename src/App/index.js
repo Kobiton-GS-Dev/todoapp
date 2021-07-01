@@ -1,15 +1,17 @@
-import React, { PropsTypes } from 'react'
+import React, { PropsTypes, PureComponent } from 'react'
 //components
 import TodoApp from './components/TodoApp'
 import { GlobalStyle } from './components/Global'
 
-const App = () => {
-  return (
-    <>
-      <GlobalStyle />
-      <TodoApp />
-    </>
-  )
+class App extends PureComponent {
+  render() {
+    return (
+      <>
+        <GlobalStyle />
+        <TodoApp />
+      </>
+    )
+  }
 }
 
 export default App
