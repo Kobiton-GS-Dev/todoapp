@@ -2,6 +2,7 @@ import React ,{ memo } from 'react'
 import styled from 'styled-components'
 import TaskCount from './TaskCount'
 import FilterButton from './FilterButton'
+import { getAll, getActive, getCompleted} from './FilterButton'
 import ClearCompleted from './ClearCompleted'
 
 const StyledFooter = styled.footer`
@@ -56,21 +57,21 @@ const Footer = memo((props) => {
       key: 'all_btn',
       title: 'All',
       isSelected: true,
-      onClick: () => {},
+      onClick: getAll,
       link: ''
     },
     {
       key: 'active_btn',
       title: 'Active',
       isSelected: false,
-      onClick: () => {},
+      onClick: getActive,
       link: ''
     },
     {
       key: 'completed_btn',
       title: 'Completed',
       isSelected: false,
-      onClick: () => {},
+      onClick: getCompleted,
       link: ''
     }
   ]

@@ -4,6 +4,7 @@ import Header from './Header'
 import TasksList from './TasksList'
 import Footer from './Footer'
 
+
 const Wrapper = styled.div`
   width: 500px;
   background: #fff;
@@ -14,11 +15,11 @@ const Wrapper = styled.div`
 
 const TodoApp = () => {
   return (
-    <Wrapper>
-      <Header />
-      <TasksList />
-      <Footer />
-    </Wrapper>
+      <Wrapper>
+        <Header />
+        <TasksList />
+        <Footer />
+      </Wrapper>
   )
 }
 

@@ -1,5 +1,6 @@
-import React ,{ memo } from 'react'
+import React, { memo, useContext } from 'react';
 import styled from 'styled-components'
+import { TaskContext } from '../contexts/taskContext'
 import Tasks from './Tasks'
 import ToggleAllButton from './ToggleAll'
 
@@ -14,12 +15,17 @@ const List = styled.ul`
   list-style: none;
 `
 
-const TasksList = memo((props) => {
+const TasksList = memo(() => {
+
+  const taskData = useContext(TaskContext)
+
   return (
     <TaskContainer>
       <ToggleAllButton />
       <List>
-        <Tasks/>
+        { 
+          taskData.map((task) => <Tasks {...task}/>)
+        }
       </List>
     </TaskContainer>
   )

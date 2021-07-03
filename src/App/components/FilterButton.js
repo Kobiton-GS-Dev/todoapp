@@ -19,6 +19,18 @@ const StyledFilterButton = styled.li`
   }
 `
 
+export const getAll = () => {
+  // get all tasks
+}
+
+export const getActive = () => {
+  //get all active tasks
+}
+
+export const getCompleted = () => {
+  // get all completed tasks
+}
+
 const FilterButton = (props) => {
   const { title, isSelected, onClick, link } = props  
   return (

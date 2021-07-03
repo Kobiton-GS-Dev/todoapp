@@ -1,7 +1,8 @@
-import React ,{ memo } from 'react'
-import styled from 'styled-components'
-import { DeleteButton } from './DeleteBtn'
-import RoundCheckBox from './Checkbox'
+import React, { memo } from 'react';
+import styled from 'styled-components';
+import { TaskContext } from '../contexts/taskContext';
+import { DeleteButton } from './DeleteBtn';
+import RoundCheckBox from './Checkbox';
 
 const ListItem = styled.li`
   position: relative;
@@ -33,7 +34,7 @@ const ListItem = styled.li`
     color: #d9d9d9;
     text-decoration: line-through;
   }
-`
+`;
 
 const DataLabel = styled.label`
   background-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23ededed%22%20stroke-width%3D%223%22/%3E%3C/svg%3E');
@@ -44,19 +45,20 @@ const DataLabel = styled.label`
   display: block;
   line-height: 1.2;
   transition: color 0.4s;
-`
+`;
 
 const Tasks = memo((props) => {
+  const taskData = props
 
-  return(
+  return (
     <ListItem>
-        <>  
-          <RoundCheckBox />        
-          <DataLabel className='Data'> mock data </DataLabel>
-          <DeleteButton className='DeleteBtn'/>
-        </>
+      <>
+        <RoundCheckBox {...taskData}/>
+        <DataLabel className="Data"> {taskData.title} </DataLabel>
+        <DeleteButton className="DeleteBtn" />
+      </>
     </ListItem>
-  )
-})
+  );
+});
 
-export default Tasks
+export default Tasks;

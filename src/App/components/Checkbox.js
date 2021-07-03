@@ -21,9 +21,12 @@ const CheckBox = styled.input`
   }
 `
 
-const RoundCheckBox = memo(() => {
+const RoundCheckBox = memo((props) => {
+
+  const taskData = props
+
   return(
-    <CheckBox />
+    <CheckBox type="checkbox" checked={taskData.isCompleted}/>
   )
 })
 
