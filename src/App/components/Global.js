@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import { createGlobalStyle } from 'styled-components'
+import React, { memo } from 'react';
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -38,4 +38,5 @@ export const GlobalStyle = createGlobalStyle`
     padding: initial;
     border: initial;
   };
-`
+`;
+

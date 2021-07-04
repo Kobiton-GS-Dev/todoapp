@@ -1,5 +1,5 @@
-import React ,{ memo } from 'react'
-import styled from 'styled-components'
+import React, { memo } from 'react';
+import styled from 'styled-components';
 
 const StyledFilterButton = styled.li`
   display: inline;
@@ -17,36 +17,65 @@ const StyledFilterButton = styled.li`
   & a.selected {
     border-color: rgba(175, 47, 47, 0.2);
   }
-`
+`;
 
 export const getAll = () => {
   // get all tasks
-}
+};
 
 export const getActive = () => {
-  //get all active tasks
-}
+  // get all active tasks
+};
 
 export const getCompleted = () => {
   // get all completed tasks
-}
+};
 
-const FilterButton = (props) => {
-  const { title, isSelected, onClick, link } = props  
+const FilterButtons = () => {
+  const filterBtn = [
+    {
+      key: 1,
+      title: 'All',
+      isSelected: true,
+      onClick: getAll,
+      link: '',
+    },
+    {
+      key: 2,
+      title: 'Active',
+      isSelected: false,
+      onClick: getActive,
+      link: '',
+    },
+    {
+      key: 3,
+      title: 'Completed',
+      isSelected: false,
+      onClick: getCompleted,
+      link: '',
+    },
+  ];
+
   return (
     <>
-      <StyledFilterButton>
-        <a 
-          href= {` #/${ link } `}
-          className= {`${isSelected ? 'selected' : ''}`} 
-          onClick= { onClick }
-        >
-          { title }
-        </a>
-      </StyledFilterButton>
-      <span></span>
+      {
+        filterBtn.map((btn) => (
+          <>
+            <StyledFilterButton>
+              <a
+                href={` #/${btn.link} `}
+                className={`${btn.isSelected ? 'selected' : ''}`}
+                onClick={btn.onClick}
+              >
+                { btn.title }
+              </a>
+            </StyledFilterButton>
+            <span />
+          </>
+        ))
+      }
     </>
-  )
-}
+  );
+};
 
-export default FilterButton
+export default FilterButtons;

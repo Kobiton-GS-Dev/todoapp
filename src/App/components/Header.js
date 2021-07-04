@@ -1,5 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useContext, useState } from 'react';
+import styled from 'styled-components';
+import { TaskContext } from '../contexts/taskContext';
 
 const BaseInput = styled.input`
   position: relative;
@@ -17,14 +18,14 @@ const BaseInput = styled.input`
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-`
+`;
 
 const AddTodo = styled(BaseInput)`
   padding: 16px 16px 16px 60px;
   border: none;
   background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
-`
+`;
 
 const Title = styled.h1`
   position: absolute;
@@ -37,15 +38,32 @@ const Title = styled.h1`
   -webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;
   text-rendering: optimizeLegibility;
-`
+`;
 
 const Header = () => {
-  return (
-    <header> 
-      <Title> todos </Title>
-      <AddTodo/>
-    </header>
-  )
-}
+  const [input, setInput] = useState('');
+  const { postData } = useContext(TaskContext);
+  const onEnter = (e) => {
+    if (e.key === 'Enter' && input) {
+      postData({
+        title: input,
+        isCompleted: false,
+      })
+    }
+  }
 
-export default Header
+  return (
+    <header>
+      <Title> todos </Title>
+      <AddTodo
+        onChange={(e) => {
+          setInput(e.target.value);
+        }}
+        onKeyPress={(e) => onEnter(e)}
+        value={input}
+      />
+    </header>
+  );
+};
+
+export default Header;

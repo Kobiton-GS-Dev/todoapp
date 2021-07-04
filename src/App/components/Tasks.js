@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import styled from 'styled-components';
 import { TaskContext } from '../contexts/taskContext';
 import { DeleteButton } from './DeleteBtn';
@@ -47,17 +47,27 @@ const DataLabel = styled.label`
   transition: color 0.4s;
 `;
 
-const Tasks = memo((props) => {
-  const taskData = props
+const Tasks = memo(() => {
+  const { data, setData } = useContext(TaskContext);
 
   return (
-    <ListItem>
-      <>
-        <RoundCheckBox {...taskData}/>
-        <DataLabel className="Data"> {taskData.title} </DataLabel>
-        <DeleteButton className="DeleteBtn" />
-      </>
-    </ListItem>
+    <>
+      {
+        data.map((task) => (
+          <ListItem>
+            <>
+              <RoundCheckBox {...task} />
+              <DataLabel className="Data">
+                {' '}
+                {task.title}
+                {' '}
+              </DataLabel>
+              <DeleteButton className="DeleteBtn" />
+            </>
+          </ListItem>
+        ))
+      }
+    </>
   );
 });
 
