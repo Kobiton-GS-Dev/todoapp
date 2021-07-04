@@ -8,7 +8,7 @@ export const TaskProvider = (props) => {
   const [ data, setData ] = useState([]);
   async function fetchData() {
     try {
-      const response = await axios.get('https://kobiton-gs-todo-app-srv.herokuapp.com/')
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}`)
       setData(sortArray(response.data, {
         by: 'createdAt',
         order: 'desc'
@@ -19,7 +19,7 @@ export const TaskProvider = (props) => {
   }
   async function postData(body) {
     try {
-      const response = await axios.post('https://kobiton-gs-todo-app-srv.herokuapp.com/', body);
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}`, body)
       fetchData()
     } catch (err) {
       console.log(err);
