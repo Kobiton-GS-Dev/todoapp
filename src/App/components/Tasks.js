@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { memo, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { TaskContext } from '../contexts/taskContext';
 import { DeleteButton } from './DeleteBtn';
@@ -9,7 +9,7 @@ const ListItem = styled.li`
   font-size: 24px;
   border-bottom: 1px solid #ededed;
 
-  &:hover .DeleteBtn {
+  &:hover .DeleteButton {
       display: block;
       cursor: pointer;
   };
@@ -24,13 +24,14 @@ const ListItem = styled.li`
   }
 
   &.editing .edit{
+    font-size: 24px;
     display: block;
-    width: 90%;
+    width: 83%;
     padding: 12px 16px;
     margin: 0 0 0 10%;
   }
 
-  &.completed .Data{
+  &.completed .DataLabel {
     color: #d9d9d9;
     text-decoration: line-through;
   }
@@ -48,22 +49,43 @@ const DataLabel = styled.label`
 `;
 
 const Tasks = memo(() => {
-  const { data, setData } = useContext(TaskContext);
+  const { taskData, taskEditingId, setTaskEditingId } = useContext(TaskContext);
+  const [updatedText, setUpdatedText] = useState('')
 
   return (
     <>
       {
-        data.map((task) => (
-          <ListItem>
-            <>
-              <RoundCheckBox {...task} />
-              <DataLabel className="Data">
-                {' '}
-                {task.title}
-                {' '}
-              </DataLabel>
-              <DeleteButton className="DeleteBtn" />
-            </>
+        taskData.map((task) => (
+          <ListItem className={`${taskEditingId === task._id ? 'editing' : ''} ${task.isCompleted ? 'completed' : ''}`}>
+            {!(taskEditingId === task._id)
+              ? (
+                <>
+                  <RoundCheckBox {...task} />
+                  <DataLabel 
+                    className="DataLabel" 
+                    onDoubleClick={() => {
+                      setTaskEditingId(task._id)
+                      setUpdatedText(task.title)
+                    }}
+                  >
+                    {' '}
+                    {task.title}
+                    {' '}
+                  </DataLabel>
+                  <DeleteButton className="DeleteButton" />
+                </>
+              )
+              : (
+                <>
+                  <input 
+                    className="edit"
+                    type="text"
+                    value={updatedText}
+                    onChange={(e) => setUpdatedText(e.target.value)}
+                    onKeyPress
+                  />
+                </>
+              )}
           </ListItem>
         ))
       }

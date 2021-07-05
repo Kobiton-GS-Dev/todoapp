@@ -5,6 +5,8 @@ import FilterButtons from './FilterButton';
 import ClearCompleted from './ClearCompleted';
 
 const StyledFooter = styled.footer`
+  display: flex;
+  justify-content: space-around;
   color: #777;
   padding: 10px 15px;
   height: 20px;
@@ -24,13 +26,17 @@ const StyledFooter = styled.footer`
 `;
 
 const ListFilter = styled.ul`
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    position: absolute;
-    right: 0;
-    left: 0;
+  display:flex;
+  flex-shrink: 3;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  left: 0;
 `;
+
 const Footer = memo(() => (
   <StyledFooter>
     <TaskCount />

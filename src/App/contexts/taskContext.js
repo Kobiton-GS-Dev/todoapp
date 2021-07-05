@@ -5,11 +5,12 @@ import sortArray from 'sort-array'
 export const TaskContext = createContext();
 
 export const TaskProvider = (props) => {
-  const [ data, setData ] = useState([]);
+  const [ taskData, setTaskData ] = useState([]);
+  const [ taskEditingId, setTaskEditingId ] = useState('')
   async function fetchData() {
     try {
       const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}`)
-      setData(sortArray(response.data, {
+      setTaskData(sortArray(response.data, {
         by: 'createdAt',
         order: 'desc'
       }))
@@ -27,9 +28,11 @@ export const TaskProvider = (props) => {
   }
   useEffect(() => {
     fetchData()
-  })
+  }, [])
   return (
-    <TaskContext.Provider value={{ data, setData, postData }}>
+    <TaskContext.Provider value={
+        { taskData, setTaskData, postData, taskEditingId, setTaskEditingId }
+      }>
       {props.children}
     </TaskContext.Provider>
   );

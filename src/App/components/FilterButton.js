@@ -2,20 +2,19 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 
 const StyledFilterButton = styled.li`
-  display: inline;
   cursor: pointer;
 
-  & a {
+  & div {
     color: inherit;
-    margin: 3px;
+    margin: -3px 3px 3px 3px;
     padding: 3px 7px;
     text-decoration: none;
     border: 1px solid transparent;
     border-radius: 3px;
-  }
 
-  & a.selected {
-    border-color: rgba(175, 47, 47, 0.2);
+    &.selected {
+      border-color: rgba(175, 47, 47, 0.2);
+    }
   }
 `;
 
@@ -62,15 +61,13 @@ const FilterButtons = () => {
         filterBtn.map((btn) => (
           <>
             <StyledFilterButton>
-              <a
-                href={` #/${btn.link} `}
+              <div
                 className={`${btn.isSelected ? 'selected' : ''}`}
                 onClick={btn.onClick}
               >
                 { btn.title }
-              </a>
+              </div>
             </StyledFilterButton>
-            <span />
           </>
         ))
       }

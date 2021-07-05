@@ -43,8 +43,9 @@ const Title = styled.h1`
 const Header = () => {
   const [input, setInput] = useState('');
   const { postData } = useContext(TaskContext);
+  const ENTER = 'Enter'
   const onEnter = (e) => {
-    if (e.key === 'Enter' && input) {
+    if (e.key === ENTER && input) {
       postData({
         title: input,
         isCompleted: false,

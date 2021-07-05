@@ -2,7 +2,6 @@ import React ,{ memo } from 'react'
 import styled from 'styled-components'
 
 const StyledTaskCount = styled.span`
-  float: left;
   text-align: left;
 `
 const TaskCount = () => {

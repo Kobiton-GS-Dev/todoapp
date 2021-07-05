@@ -2,14 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StyledClearBtn = styled.button`
-  float: right;
+  margin-left: auto;
+  order: 2;
   position: relative;
   line-height: 20px;
   text-decoration: none;
   cursor: pointer;
 
   &:active {
-    float: right;
+    margin-left: auto;
+    order: 2;
     position: relative;
     line-height: 20px;
     text-decoration: none;
