@@ -1,18 +1,23 @@
-import React ,{ memo } from 'react'
-import styled from 'styled-components'
+import React, { memo, useContext } from 'react';
+import styled from 'styled-components';
+import { TaskContext } from '../contexts/taskContext';
 
 const StyledTaskCount = styled.span`
   text-align: left;
-`
+`;
 const TaskCount = () => {
-  return(
+  const { activeItems } = useContext(TaskContext);
+
+  return (
     <StyledTaskCount>
-      <strong>1</strong>
+      <strong>{activeItems}</strong>
       <span> </span>
-      <span>item</span>
+      <span>
+        {activeItems > 1 ? 'items' : 'item'}
+      </span>
       <span> left</span>
     </StyledTaskCount>
-  )
-}
+  );
+};
 
-export default TaskCount
+export default TaskCount;

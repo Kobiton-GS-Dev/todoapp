@@ -29,7 +29,7 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   };
-  input[type="checkbox" i] {
+  input[type="checkbox"] {
     background-color: initial;
     cursor: default;
     -webkit-appearance: checkbox;

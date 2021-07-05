@@ -25,6 +25,10 @@ const AddTodo = styled(BaseInput)`
   border: none;
   background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+  &:placeholder-shown {
+    font-style: italic;
+    opacity: 0,5;
+  }
 `;
 
 const Title = styled.h1`
@@ -57,6 +61,7 @@ const Header = () => {
     <header>
       <Title> todos </Title>
       <AddTodo
+        placeholder='What needs to be done?'
         onChange={(e) => {
           setInput(e.target.value);
         }}

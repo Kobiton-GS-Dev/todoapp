@@ -1,5 +1,6 @@
-import React ,{ memo } from 'react'
+import React ,{ useContext, useState } from 'react'
 import styled from 'styled-components'
+import { TaskContext } from '../contexts/taskContext';
 
 const ToggleAll = styled.input`
   background: none;
@@ -32,10 +33,36 @@ const ToggleAll = styled.input`
   }
 `
 const ToggleAllButton = () => {
-  return(
+
+  const { isCompletedAll, setIsCompletedAll, taskData, updateData } = useContext(TaskContext)
+  const checkAllTasks = () => {
+    if (isCompletedAll === false) {
+      taskData.forEach((task) => {
+        updateData({
+          id: task._id,
+          isCompleted: true,
+        })
+      });
+      setIsCompletedAll(true)
+    }
+    else {
+      taskData.forEach((task) => {
+        updateData({
+          id: task._id,
+          isCompleted: false,
+        })
+      });
+      setIsCompletedAll(false)
+    }
+  }
+
+  return (
     <div>
-      <ToggleAll />
-      <label></label>
+      <ToggleAll 
+        type="checkbox" 
+        checked={isCompletedAll}
+      />
+      <label onClick={checkAllTasks}/>
     </div>
   )
 }

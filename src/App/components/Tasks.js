@@ -1,4 +1,4 @@
-import React, { memo, useContext, useState } from 'react';
+import React, { memo, useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { TaskContext } from '../contexts/taskContext';
 import { DeleteButton } from './DeleteBtn';
@@ -50,11 +50,13 @@ const DataLabel = styled.label`
 
 const Tasks = memo(() => {
   const { 
-    taskData, 
+    taskData,
     taskEditingId, 
     setTaskEditingId, 
-    updateData 
+    updateData,
+    // deleteData,
   } = useContext(TaskContext);
+
   const [updatedText, setUpdatedText] = useState('')
   const ENTER = 'Enter'
 
@@ -65,6 +67,9 @@ const Tasks = memo(() => {
           id: taskEditingId,
           title: updatedText,
         })
+        setTaskEditingId('')
+      }
+      else {
         setTaskEditingId('')
       }
     }

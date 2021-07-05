@@ -1,5 +1,6 @@
-import React, { memo } from 'react'
+import React, { memo, useContext } from 'react'
 import styled from 'styled-components'
+import { TaskContext } from '../contexts/taskContext';
 
 const CheckBox = styled.input`  
   height: 40px;
@@ -7,10 +8,10 @@ const CheckBox = styled.input`
   opacity: 0;
   text-align: center;
   width: 40px;
-  height: auto;
+  height: 40px;
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: 10;
   margin: auto 0;
   border: none;
   -webkit-appearance: none;
@@ -23,10 +24,29 @@ const CheckBox = styled.input`
 
 const RoundCheckBox = memo((props) => {
 
+  const { updateData } = useContext(TaskContext)
   const task = props
+  const markCompleted = () => {
+    if (task.isCompleted) {
+      updateData({
+        id: task._id,
+        isCompleted: false
+      })
+    }
+    else {
+      updateData({
+        id: task._id,
+        isCompleted: true
+      })
+    }
+  }
 
-  return(
-    <CheckBox type="checkbox" checked={task.isCompleted}/>
+  return (
+    <CheckBox 
+      type="checkbox" 
+      checked={task.isCompleted}
+      onChange={() => markCompleted()}
+    />
   )
 })
 
