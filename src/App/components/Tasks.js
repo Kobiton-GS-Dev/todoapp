@@ -49,8 +49,26 @@ const DataLabel = styled.label`
 `;
 
 const Tasks = memo(() => {
-  const { taskData, taskEditingId, setTaskEditingId } = useContext(TaskContext);
+  const { 
+    taskData, 
+    taskEditingId, 
+    setTaskEditingId, 
+    updateData 
+  } = useContext(TaskContext);
   const [updatedText, setUpdatedText] = useState('')
+  const ENTER = 'Enter'
+
+  const onEnter = (e) => {
+    if (e.key === ENTER) {
+      if (updatedText) {
+        updateData({
+          id: taskEditingId,
+          title: updatedText,
+        })
+        setTaskEditingId('')
+      }
+    }
+  }
 
   return (
     <>
@@ -82,7 +100,7 @@ const Tasks = memo(() => {
                     type="text"
                     value={updatedText}
                     onChange={(e) => setUpdatedText(e.target.value)}
-                    onKeyPress
+                    onKeyPress={(e) => onEnter(e)}
                   />
                 </>
               )}
