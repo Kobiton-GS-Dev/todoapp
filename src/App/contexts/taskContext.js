@@ -7,7 +7,7 @@ export const TaskContext = createContext();
 export const TaskProvider = (props) => {
   const [ taskData, setTaskData ] = useState([])
   const [ numOfActiveItems, setNumOfActiveItems ] = useState(0)
-  const [ completedItems, setCompletedItems ] = useState()
+  const [ completedItems, setCompletedItems ] = useState([])
   const [ taskEditingId, setTaskEditingId ] = useState('')
   const [isCompletedAll, setIsCompletedAll] = useState(false)
 
@@ -103,8 +103,8 @@ export const TaskProvider = (props) => {
   return (
     <TaskContext.Provider value={
         {
-          numOfActiveItems,
           completedItems,
+          numOfActiveItems,
           taskData, 
           setTaskData,
           taskEditingId, 

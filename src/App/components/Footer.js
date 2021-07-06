@@ -40,12 +40,7 @@ const ListFilter = styled.ul`
 
 const Footer = memo(() => {
 
-  const { completedItems, deleteData } = useContext(TaskContext)
-  const clearCompleted = () => {
-    completedItems.forEach((task) => {
-      deleteData(task._id)
-    })
-  }
+  const { completedItems } = useContext(TaskContext)
 
   return (
     <StyledFooter>
@@ -54,8 +49,8 @@ const Footer = memo(() => {
         <FilterButtons />
       </ListFilter>
       { 
-        completedItems.length > 0 ? 
-          <ClearCompleted onClick={() => clearCompleted()}/> 
+        completedItems.length ? 
+          <ClearCompleted /> 
           : <StyledClearBtn /> 
       }
     </StyledFooter>

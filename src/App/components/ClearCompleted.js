@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { TaskContext } from '../contexts/taskContext';
 
 export const StyledClearBtn = styled.button`
   margin-left: auto;
@@ -20,7 +21,15 @@ export const StyledClearBtn = styled.button`
 `
 
 export const ClearCompleted = () => {
-  return(
-    <StyledClearBtn>Clear Completed</StyledClearBtn>
+
+  const { completedItems, deleteData } = useContext(TaskContext)
+  const clearCompleted = () => {
+    completedItems.forEach((task) => {
+      deleteData(task._id)
+    })
+  }
+
+  return (
+    <StyledClearBtn onClick={() => clearCompleted()}>Clear Completed</StyledClearBtn>
   )
 }
