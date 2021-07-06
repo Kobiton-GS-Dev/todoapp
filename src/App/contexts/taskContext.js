@@ -6,7 +6,8 @@ export const TaskContext = createContext();
 
 export const TaskProvider = (props) => {
   const [ taskData, setTaskData ] = useState([])
-  const [ activeItems, setActiveItems ] = useState(0)
+  const [ numOfActiveItems, setNumOfActiveItems ] = useState(0)
+  const [ completedItems, setCompletedItems ] = useState()
   const [ taskEditingId, setTaskEditingId ] = useState('')
   const [isCompletedAll, setIsCompletedAll] = useState(false)
 
@@ -44,7 +45,8 @@ export const TaskProvider = (props) => {
         order: 'desc'
       }))
       const activeTasks = response.data.filter(checkUncompleted)
-      setActiveItems(activeTasks.length)
+      setNumOfActiveItems(activeTasks.length)
+      setCompletedItems(response.data.filter(checkCompleted))
     } catch (error) {
       console.log(error)
     }
@@ -81,28 +83,17 @@ export const TaskProvider = (props) => {
     }
   }
 
-  // async function deleteData(id, isCleared) {
-  //   if (!isCleared) {
-  //     try {
-  //       await axios.delete(`${process.env.REACT_APP_SERVER_URL}${id}`)
-  //       fetchData()
-  //     } catch (err) {
-  //       console.log(err)
-  //     }
-  //   }
-  //   else {
-  //     taskData.forEach( async (task) => {
-  //       if (task.isCompleted === true) {
-  //         try {
-  //           await axios.delete(`${process.env.REACT_APP_SERVER_URL}${task._id}`)
-  //         } catch (error) {
-  //           console.log(error)
-  //         }
-  //       }
-  //     })
-  //     fetchData()
-  //   }
-  // }
+  async function deleteData(taskId) {
+    try {
+      const params = {
+        id: taskId
+      }
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}${taskId}`, { params })
+      fetchData()
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   useEffect(() => {
     fetchData()
@@ -112,7 +103,8 @@ export const TaskProvider = (props) => {
   return (
     <TaskContext.Provider value={
         {
-          activeItems,
+          numOfActiveItems,
+          completedItems,
           taskData, 
           setTaskData,
           taskEditingId, 
@@ -123,7 +115,7 @@ export const TaskProvider = (props) => {
           updateData,
           fetchData,
           fetchAndFilterData,
-          // deleteData,
+          deleteData,
         }
       }>
       {props.children}

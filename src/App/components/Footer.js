@@ -1,8 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import styled from 'styled-components';
+import { TaskContext } from '../contexts/taskContext';
 import TaskCount from './TaskCount';
 import FilterButtons from './FilterButton';
-import ClearCompleted from './ClearCompleted';
+import { ClearCompleted, StyledClearBtn } from './ClearCompleted';
 
 const StyledFooter = styled.footer`
   display: flex;
@@ -37,14 +38,28 @@ const ListFilter = styled.ul`
   left: 0;
 `;
 
-const Footer = memo(() => (
-  <StyledFooter>
-    <TaskCount />
-    <ListFilter>
-      <FilterButtons />
-    </ListFilter>
-    <ClearCompleted />
-  </StyledFooter>
-));
+const Footer = memo(() => {
+
+  const { completedItems, deleteData } = useContext(TaskContext)
+  const clearCompleted = () => {
+    completedItems.forEach((task) => {
+      deleteData(task._id)
+    })
+  }
+
+  return (
+    <StyledFooter>
+      <TaskCount />
+      <ListFilter>
+        <FilterButtons />
+      </ListFilter>
+      { 
+        completedItems.length > 0 ? 
+          <ClearCompleted onClick={() => clearCompleted()}/> 
+          : <StyledClearBtn /> 
+      }
+    </StyledFooter>
+  )
+})
 
 export default Footer;

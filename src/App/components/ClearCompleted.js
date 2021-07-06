@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledClearBtn = styled.button`
+export const StyledClearBtn = styled.button`
   margin-left: auto;
   order: 2;
   position: relative;
@@ -19,10 +19,8 @@ const StyledClearBtn = styled.button`
   }
 `
 
-const ClearCompleted = (props) => {
-  return (
+export const ClearCompleted = () => {
+  return(
     <StyledClearBtn>Clear Completed</StyledClearBtn>
   )
 }
-
-export default ClearCompleted

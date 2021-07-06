@@ -6,14 +6,14 @@ const StyledTaskCount = styled.span`
   text-align: left;
 `;
 const TaskCount = () => {
-  const { activeItems } = useContext(TaskContext);
+  const { numOfActiveItems } = useContext(TaskContext);
 
   return (
     <StyledTaskCount>
-      <strong>{activeItems}</strong>
+      <strong>{numOfActiveItems}</strong>
       <span> </span>
       <span>
-        {activeItems > 1 ? 'items' : 'item'}
+        {numOfActiveItems > 1 ? 'items' : 'item'}
       </span>
       <span> left</span>
     </StyledTaskCount>

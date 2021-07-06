@@ -54,7 +54,7 @@ const Tasks = memo(() => {
     taskEditingId, 
     setTaskEditingId, 
     updateData,
-    // deleteData,
+    deleteData,
   } = useContext(TaskContext);
 
   const [updatedText, setUpdatedText] = useState('')
@@ -95,7 +95,7 @@ const Tasks = memo(() => {
                     {task.title}
                     {' '}
                   </DataLabel>
-                  <DeleteButton className="DeleteButton" />
+                  <DeleteButton className="DeleteButton" onClick={() => deleteData(task._id)}/>
                 </>
               )
               : (
