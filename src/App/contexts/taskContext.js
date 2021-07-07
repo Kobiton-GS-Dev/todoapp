@@ -56,7 +56,7 @@ export const TaskProvider = (props) => {
       const params = {
         id: taskId,
       };
-      await axios.delete(`${process.env.REACT_APP_SERVER_URL}${taskId}`, {
+      await axios.delete(`${process.env.SERVER_URL}${taskId}`, {
         params,
       });
       fetchData();
@@ -68,7 +68,7 @@ export const TaskProvider = (props) => {
   useEffect(() => {
     fetchData();
     findUncompleted();
-    console.log(process.env.REACT_APP_SERVER_URL);
+    console.log(process.env.SERVER_URL);
   }, []);
 
   return (
