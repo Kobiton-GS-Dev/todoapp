@@ -1,5 +1,5 @@
-import React ,{ useContext, useState } from 'react'
-import styled from 'styled-components'
+import React, { useContext, useState } from 'react';
+import styled from 'styled-components';
 import { TaskContext } from '../contexts/taskContext';
 
 const ToggleAll = styled.input`
@@ -31,40 +31,37 @@ const ToggleAll = styled.input`
   &:checked + label:before {
     color: #737373;
   }
-`
+`;
 const ToggleAllButton = () => {
-
-  const { isCompletedAll, setIsCompletedAll, taskData, updateData } = useContext(TaskContext)
+  const {
+    isCompletedAll, setIsCompletedAll, taskData, updateData,
+  } = useContext(TaskContext);
   const checkAllTasks = () => {
     if (isCompletedAll === false) {
       taskData.forEach((task) => {
         updateData({
           id: task._id,
           isCompleted: true,
-        })
+        });
       });
-      setIsCompletedAll(true)
-    }
-    else {
+      setIsCompletedAll(true);
+    } else {
       taskData.forEach((task) => {
         updateData({
           id: task._id,
           isCompleted: false,
-        })
+        });
       });
-      setIsCompletedAll(false)
+      setIsCompletedAll(false);
     }
-  }
+  };
 
   return (
     <div>
-      <ToggleAll 
-        type="checkbox" 
-        checked={isCompletedAll}
-      />
-      <label onClick={checkAllTasks}/>
+      <ToggleAll type="checkbox" checked={isCompletedAll} />
+      <label onClick={checkAllTasks} />
     </div>
-  )
-}
+  );
+};
 
-export default ToggleAllButton
+export default ToggleAllButton;

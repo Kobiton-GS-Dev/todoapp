@@ -24,10 +24,10 @@ const AddTodo = styled(BaseInput)`
   padding: 16px 16px 16px 60px;
   border: none;
   background: rgba(0, 0, 0, 0.003);
-  box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   &:placeholder-shown {
     font-style: italic;
-    opacity: 0,5;
+    opacity: 0, 5;
   }
 `;
 
@@ -47,21 +47,21 @@ const Title = styled.h1`
 const Header = () => {
   const [input, setInput] = useState('');
   const { postData } = useContext(TaskContext);
-  const ENTER = 'Enter'
+  const ENTER = 'Enter';
   const onEnter = (e) => {
     if (e.key === ENTER && input) {
       postData({
         title: input,
         isCompleted: false,
-      })
+      });
     }
-  }
+  };
 
   return (
     <header>
       <Title> todos </Title>
       <AddTodo
-        placeholder='What needs to be done?'
+        placeholder="What needs to be done?"
         onChange={(e) => {
           setInput(e.target.value);
         }}

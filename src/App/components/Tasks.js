@@ -1,4 +1,6 @@
-import React, { memo, useContext, useState, useEffect } from 'react';
+import React, {
+  memo, useContext, useState, useEffect,
+} from 'react';
 import styled from 'styled-components';
 import { TaskContext } from '../contexts/taskContext';
 import { DeleteButton } from './DeleteBtn';
@@ -9,10 +11,10 @@ const ListItem = styled.li`
   font-size: 24px;
   border-bottom: 1px solid #ededed;
 
-  &:hover .DeleteButton {
-      display: block;
-      cursor: pointer;
-  };
+  &:hover .delete-button {
+    display: block;
+    cursor: pointer;
+  }
 
   &.editing:last-child {
     margin-bottom: -1px;
@@ -23,7 +25,7 @@ const ListItem = styled.li`
     padding: 0;
   }
 
-  &.editing .edit{
+  &.editing .edit {
     font-size: 24px;
     display: block;
     width: 83%;
@@ -31,7 +33,7 @@ const ListItem = styled.li`
     margin: 0 0 0 10%;
   }
 
-  &.completed .DataLabel {
+  &.completed .data-label {
     color: #d9d9d9;
     text-decoration: line-through;
   }
@@ -49,16 +51,16 @@ const DataLabel = styled.label`
 `;
 
 const Tasks = memo(() => {
-  const { 
-    taskData,
-    taskEditingId, 
-    setTaskEditingId, 
+  const {
+    filteredData,
+    taskEditingId,
+    setTaskEditingId,
     updateData,
     deleteData,
   } = useContext(TaskContext);
 
-  const [updatedText, setUpdatedText] = useState('')
-  const ENTER = 'Enter'
+  const [updatedText, setUpdatedText] = useState('');
+  const ENTER = 'Enter';
 
   const onEnter = (e) => {
     if (e.key === ENTER) {
@@ -66,52 +68,54 @@ const Tasks = memo(() => {
         updateData({
           id: taskEditingId,
           title: updatedText,
-        })
-        setTaskEditingId('')
-      }
-      else {
-        setTaskEditingId('')
+        });
+        setTaskEditingId('');
+      } else {
+        setTaskEditingId('');
       }
     }
-  }
+  };
 
   return (
     <>
-      {
-        taskData.map((task) => (
-          <ListItem className={`${taskEditingId === task._id ? 'editing' : ''} ${task.isCompleted ? 'completed' : ''}`}>
-            {!(taskEditingId === task._id)
-              ? (
-                <>
-                  <RoundCheckBox {...task} />
-                  <DataLabel 
-                    className="DataLabel" 
-                    onDoubleClick={() => {
-                      setTaskEditingId(task._id)
-                      setUpdatedText(task.title)
-                    }}
-                  >
-                    {' '}
-                    {task.title}
-                    {' '}
-                  </DataLabel>
-                  <DeleteButton className="DeleteButton" onClick={() => deleteData(task._id)}/>
-                </>
-              )
-              : (
-                <>
-                  <input 
-                    className="edit"
-                    type="text"
-                    value={updatedText}
-                    onChange={(e) => setUpdatedText(e.target.value)}
-                    onKeyPress={(e) => onEnter(e)}
-                  />
-                </>
-              )}
-          </ListItem>
-        ))
-      }
+      {filteredData.map((task) => (
+        <ListItem
+          className={`${taskEditingId === task._id ? 'editing' : ''} ${
+            task.isCompleted ? 'completed' : ''
+          }`}
+        >
+          {!(taskEditingId === task._id) ? (
+            <>
+              <RoundCheckBox {...task} />
+              <DataLabel
+                className="data-label"
+                onDoubleClick={() => {
+                  setTaskEditingId(task._id);
+                  setUpdatedText(task.title);
+                }}
+              >
+                {' '}
+                {task.title}
+                {' '}
+              </DataLabel>
+              <DeleteButton
+                className="delete-button"
+                onClick={() => deleteData(task._id)}
+              />
+            </>
+          ) : (
+            <>
+              <input
+                className="edit"
+                type="text"
+                value={updatedText}
+                onChange={(e) => setUpdatedText(e.target.value)}
+                onKeyPress={(e) => onEnter(e)}
+              />
+            </>
+          )}
+        </ListItem>
+      ))}
     </>
   );
 });

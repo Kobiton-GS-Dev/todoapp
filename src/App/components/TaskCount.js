@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { TaskContext } from '../contexts/taskContext';
 
@@ -6,15 +6,19 @@ const StyledTaskCount = styled.span`
   text-align: left;
 `;
 const TaskCount = () => {
-  const { numOfActiveItems } = useContext(TaskContext);
+  const { taskData } = useContext(TaskContext);
+
+  function checkUncompleted(task) {
+    return task.isCompleted === false;
+  }
+
+  const activeTask = taskData.filter(checkUncompleted);
 
   return (
     <StyledTaskCount>
-      <strong>{numOfActiveItems}</strong>
+      <strong>{activeTask.length}</strong>
       <span> </span>
-      <span>
-        {numOfActiveItems > 1 ? 'items' : 'item'}
-      </span>
+      <span>{activeTask.length > 1 ? 'items' : 'item'}</span>
       <span> left</span>
     </StyledTaskCount>
   );

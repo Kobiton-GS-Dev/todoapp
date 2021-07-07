@@ -1,4 +1,6 @@
-import React, { memo, useContext, useState } from 'react';
+import React, {
+  memo, useContext, useState, useEffect,
+} from 'react';
 import styled from 'styled-components';
 import { TaskContext } from '../contexts/taskContext';
 
@@ -19,30 +21,33 @@ const StyledFilterButton = styled.li`
   }
 `;
 
-
-
 const FilterButtons = () => {
-
-  const { fetchAndFilterData } = useContext(TaskContext)
-  const [activeButton, setActiveButton] =useState('ALL')
+  const { taskData, setFilteredData } = useContext(TaskContext);
+  const [activeButton, setActiveButton] = useState('ALL');
 
   const getAll = () => {
     // get all tasks
-    fetchAndFilterData('ALL')
-    setActiveButton('ALL')
+    setFilteredData(taskData);
+    setActiveButton('ALL');
   };
 
   const getActive = () => {
     // get all active tasks
-    fetchAndFilterData('ACTIVE')
-    setActiveButton('ACTIVE')
+    const activeTasks = taskData.filter((task) => task.isCompleted === false);
+    setFilteredData(activeTasks);
+    setActiveButton('ACTIVE');
   };
 
   const getCompleted = () => {
     // get all completed tasks
-    fetchAndFilterData('COMPLETED')
-    setActiveButton('COMPLETED')
+    const completedTasks = taskData.filter((task) => task.isCompleted === true);
+    setFilteredData(completedTasks);
+    setActiveButton('COMPLETED');
   };
+
+  useEffect(() => {
+    setFilteredData(taskData);
+  }, []);
 
   const filterBtn = [
     {
@@ -70,20 +75,18 @@ const FilterButtons = () => {
 
   return (
     <>
-      {
-        filterBtn.map((btn) => (
-          <>
-            <StyledFilterButton>
-              <div
-                className={`${btn.isSelected ? 'selected' : ''}`}
-                onClick={btn.onClick}
-              >
-                { btn.title }
-              </div>
-            </StyledFilterButton>
-          </>
-        ))
-      }
+      {filterBtn.map((btn) => (
+        <>
+          <StyledFilterButton>
+            <div
+              className={`${btn.isSelected ? 'selected' : ''}`}
+              onClick={btn.onClick}
+            >
+              {btn.title}
+            </div>
+          </StyledFilterButton>
+        </>
+      ))}
     </>
   );
 };

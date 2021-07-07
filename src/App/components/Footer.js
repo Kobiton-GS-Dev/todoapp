@@ -22,12 +22,14 @@ const StyledFooter = styled.footer`
     left: 0;
     height: 50px;
     overflow: hidden;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
+      0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
+      0 17px 2px -6px rgba(0, 0, 0, 0.2);
   }
 `;
 
 const ListFilter = styled.ul`
-  display:flex;
+  display: flex;
   flex-shrink: 3;
   justify-content: center;
   margin: 0;
@@ -39,8 +41,11 @@ const ListFilter = styled.ul`
 `;
 
 const Footer = memo(() => {
-
-  const { completedItems } = useContext(TaskContext)
+  const { taskData } = useContext(TaskContext);
+  function isCompletedExist() {
+    if (taskData.find((task) => task.isCompleted === true)) return true;
+    return false;
+  }
 
   return (
     <StyledFooter>
@@ -48,13 +53,9 @@ const Footer = memo(() => {
       <ListFilter>
         <FilterButtons />
       </ListFilter>
-      { 
-        completedItems.length ? 
-          <ClearCompleted /> 
-          : <StyledClearBtn /> 
-      }
+      {isCompletedExist ? <ClearCompleted /> : <StyledClearBtn />}
     </StyledFooter>
-  )
-})
+  );
+});
 
 export default Footer;

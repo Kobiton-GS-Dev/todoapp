@@ -1,5 +1,5 @@
-import React ,{ memo } from 'react'
-import styled from 'styled-components'
+import React, { memo } from 'react';
+import styled from 'styled-components';
 
 export const DeleteButton = styled.button`
   display: none;
@@ -18,4 +18,4 @@ export const DeleteButton = styled.button`
   &:after {
     content: '×';
   }
-`
+`;
