@@ -9,6 +9,7 @@ export const TaskProvider = (props) => {
   const [filteredData, setFilteredData] = useState([]);
   const [taskEditingId, setTaskEditingId] = useState('');
   const [isCompletedAll, setIsCompletedAll] = useState(false);
+  const SERVER_URL = 'https://kobiton-gs-todo-app-srv.herokuapp.com/';
 
   function checkUncompleted(task) {
     return task.isCompleted === false;
@@ -21,7 +22,7 @@ export const TaskProvider = (props) => {
 
   async function fetchData() {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}`);
+      const response = await axios.get(SERVER_URL);
       setTaskData(
         sortArray(response.data, {
           by: 'createdAt',
@@ -35,7 +36,7 @@ export const TaskProvider = (props) => {
 
   async function postData(body) {
     try {
-      await axios.post(`${process.env.REACT_APP_SERVER_URL}`, body);
+      await axios.post(SERVER_URL, body);
       fetchData();
     } catch (err) {
       console.log(err);
@@ -44,7 +45,7 @@ export const TaskProvider = (props) => {
 
   async function updateData(body) {
     try {
-      await axios.put(`${process.env.REACT_APP_SERVER_URL}${body.id}`, body);
+      await axios.put(`${SERVER_URL}${body.id}`, body);
       fetchData();
     } catch (err) {
       console.log(err);
@@ -56,7 +57,7 @@ export const TaskProvider = (props) => {
       const params = {
         id: taskId,
       };
-      await axios.delete(`${process.env.SERVER_URL}${taskId}`, {
+      await axios.delete(`${SERVER_URL}${taskId}`, {
         params,
       });
       fetchData();
@@ -68,7 +69,6 @@ export const TaskProvider = (props) => {
   useEffect(() => {
     fetchData();
     findUncompleted();
-    console.log(process.env.SERVER_URL);
   }, []);
 
   return (
