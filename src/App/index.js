@@ -1,16 +1,14 @@
-import React, { PropsTypes } from 'react'
-import styled from 'styled-components'
+import React from 'react';
 
-const Wrapper = styled.h1`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 100vw;
-  min-height: 100vh;
-`
+import TodoApp from './components/TodoApp';
+import { GlobalStyle } from './components/Global';
+import { TaskProvider } from './contexts/taskContext';
 
-const App = () => {
-  return <Wrapper>Mini Todo App</Wrapper>
-}
+const App = () => (
+  <TaskProvider>
+    <GlobalStyle />
+    <TodoApp />
+  </TaskProvider>
+);
 
-export default App
+export default App;

@@ -18,20 +18,21 @@ module.exports = {
     'react',
   ],
   rules: {
-    "prettier/prettier": [
-        "warn",
-        {
-          "arrowParens": "avoid",
-          "semi": false,
-          "trailingComma": "none",
-          "endOfLine": "lf",
-          "tabWidth": 2,
-          "printWidth": 80,
-          "useTabs": false,
-          "singleQuote": true
-        }
-      ],
-      "no-console": "warn"
-    }
-  },
+    'prettier/prettier': [
+      'warn',
+      {
+        arrowParens: 'avoid',
+        semi: false,
+        trailingComma: 'none',
+        endOfLine: 'lf',
+        tabWidth: 2,
+        printWidth: 80,
+        useTabs: false,
+        singleQuote: true,
+      },
+    ],
+    'no-console': 'warn',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+  }
+  ,
 };
