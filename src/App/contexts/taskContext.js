@@ -22,7 +22,7 @@ export const TaskProvider = (props) => {
 
   async function fetchData() {
     try {
-      const response = await axios.get(SERVER_URL);
+      const response = await axios.get(`${SERVER_URL}`);
       setTaskData(
         sortArray(response.data, {
           by: 'createdAt',
@@ -36,7 +36,7 @@ export const TaskProvider = (props) => {
 
   async function postData(body) {
     try {
-      await axios.post(SERVER_URL, body);
+      await axios.post(`${SERVER_URL}`, body);
       fetchData();
     } catch (err) {
       console.log(err);
