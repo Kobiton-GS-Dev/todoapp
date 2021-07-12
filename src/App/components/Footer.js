@@ -42,10 +42,6 @@ const ListFilter = styled.ul`
 
 const Footer = memo(() => {
   const { taskData } = useContext(TaskContext);
-  function isCompletedExist() {
-    if (taskData.find((task) => task.isCompleted === true)) return true;
-    return false;
-  }
 
   return (
     <StyledFooter>
@@ -53,7 +49,11 @@ const Footer = memo(() => {
       <ListFilter>
         <FilterButtons />
       </ListFilter>
-      {isCompletedExist ? <ClearCompleted /> : <StyledClearBtn />}
+      {taskData.find((task) => task.isCompleted === true) ? (
+        <ClearCompleted />
+      ) : (
+        <StyledClearBtn />
+      )}
     </StyledFooter>
   );
 });
