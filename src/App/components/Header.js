@@ -23,11 +23,12 @@ const BaseInput = styled.input`
 const AddTodo = styled(BaseInput)`
   padding: 16px 16px 16px 60px;
   border: none;
+  outline: none;
   background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   &:placeholder-shown {
     font-style: italic;
-    opacity: 0, 5;
+    color: #d9d9d9;
   }
 `;
 

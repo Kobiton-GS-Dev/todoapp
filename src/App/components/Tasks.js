@@ -62,17 +62,21 @@ const Tasks = memo(() => {
   const [updatedText, setUpdatedText] = useState('');
   const ENTER = 'Enter';
 
-  const onEnter = (e) => {
+  const updateTask = (task) => {
+    if (updatedText !== task.title) {
+      updateData({
+        id: taskEditingId,
+        title: updatedText,
+      });
+      setTaskEditingId('');
+    } else {
+      setTaskEditingId('');
+    }
+  };
+
+  const handleOnEnter = (e, task) => {
     if (e.key === ENTER) {
-      if (updatedText) {
-        updateData({
-          id: taskEditingId,
-          title: updatedText,
-        });
-        setTaskEditingId('');
-      } else {
-        setTaskEditingId('');
-      }
+      updateTask(e, task);
     }
   };
 
@@ -110,7 +114,8 @@ const Tasks = memo(() => {
                 type="text"
                 value={updatedText}
                 onChange={(e) => setUpdatedText(e.target.value)}
-                onKeyPress={(e) => onEnter(e)}
+                onKeyPress={(e) => handleOnEnter(e, task)}
+                onBlur={(e) => updateTask(task)}
               />
             </>
           )}
