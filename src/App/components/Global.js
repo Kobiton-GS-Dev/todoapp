@@ -1,4 +1,3 @@
-import React, { memo } from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -39,4 +38,3 @@ export const GlobalStyle = createGlobalStyle`
     border: initial;
   };
 `;
-

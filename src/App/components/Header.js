@@ -54,6 +54,7 @@ const Header = () => {
         title: input,
         isCompleted: false,
       });
+      setInput('');
     }
   };
 

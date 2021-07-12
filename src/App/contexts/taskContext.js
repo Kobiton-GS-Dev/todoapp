@@ -9,6 +9,8 @@ export const TaskProvider = (props) => {
   const [filteredData, setFilteredData] = useState([]);
   const [taskEditingId, setTaskEditingId] = useState('');
   const [isCompletedAll, setIsCompletedAll] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('ALL');
   const SERVER_URL = 'https://kobiton-gs-todo-app-srv.herokuapp.com/';
 
   function checkUncompleted(task) {
@@ -20,35 +22,79 @@ export const TaskProvider = (props) => {
     else setIsCompletedAll(true);
   };
 
+  // Filter data method
+  const getAll = () => {
+    // get all tasks
+    setFilteredData(taskData);
+    setActiveFilter('ALL');
+  };
+
+  const getActive = () => {
+    // get all active tasks
+    const activeTasks = taskData.filter((task) => task.isCompleted === false);
+    setFilteredData(activeTasks);
+    setActiveFilter('ACTIVE');
+  };
+
+  const getCompleted = () => {
+    // get all completed tasks
+    const completedTasks = taskData.filter((task) => task.isCompleted === true);
+    setFilteredData(completedTasks);
+    setActiveFilter('COMPLETED');
+  };
+
+  // Call API method
   async function fetchData() {
     try {
+      setIsLoading(true);
       const response = await axios.get(`${SERVER_URL}`);
-      setTaskData(
-        sortArray(response.data, {
-          by: 'createdAt',
-          order: 'desc',
-        }),
-      );
+      const sortedData = sortArray(response.data, {
+        by: 'createdAt',
+        order: 'desc',
+      });
+      setTaskData(sortedData);
+      switch (activeFilter) {
+        case 'ALL':
+          setFilteredData(sortedData);
+          break;
+        case 'ACTIVE':
+          setFilteredData(sortedData.filter((task) => task.isCompleted === false));
+          break;
+        case 'COMPLETED':
+          setFilteredData(sortedData.filter((task) => task.isCompleted === true));
+          break;
+        default:
+          setFilteredData(sortedData);
+          break;
+      }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   async function postData(body) {
     try {
+      setIsLoading(true);
       await axios.post(`${SERVER_URL}`, body);
       fetchData();
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   async function updateData(body) {
     try {
+      setIsLoading(true);
       await axios.put(`${SERVER_URL}${body.id}`, body);
       fetchData();
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -57,23 +103,43 @@ export const TaskProvider = (props) => {
       const params = {
         id: taskId,
       };
+      setIsLoading(true);
       await axios.delete(`${SERVER_URL}${taskId}`, {
         params,
       });
       fetchData();
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
+  // modify data
+  const toggleAllTasks = () => {
+    findUncompleted();
+    taskData.forEach(({ _id: id }) => {
+      updateData({
+        id,
+        isCompleted: !isCompletedAll,
+      });
+    });
+  };
+
+  useEffect(() => {
+    findUncompleted();
+  }, [taskData]);
+
   useEffect(() => {
     fetchData();
-    findUncompleted();
   }, []);
 
   return (
     <TaskContext.Provider
       value={{
+        activeFilter,
+        isLoading,
+        toggleAllTasks,
         filteredData,
         setFilteredData,
         taskData,
@@ -83,6 +149,9 @@ export const TaskProvider = (props) => {
         isCompletedAll,
         setIsCompletedAll,
         checkUncompleted,
+        getAll,
+        getActive,
+        getCompleted,
         postData,
         updateData,
         fetchData,

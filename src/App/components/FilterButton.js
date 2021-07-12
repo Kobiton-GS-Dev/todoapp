@@ -1,6 +1,4 @@
-import React, {
-  memo, useContext, useState, useEffect,
-} from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { TaskContext } from '../contexts/taskContext';
 
@@ -22,54 +20,28 @@ const StyledFilterButton = styled.li`
 `;
 
 const FilterButtons = () => {
-  const { taskData, setFilteredData } = useContext(TaskContext);
-  const [activeButton, setActiveButton] = useState('ALL');
-
-  const getAll = () => {
-    // get all tasks
-    setFilteredData(taskData);
-    setActiveButton('ALL');
-  };
-
-  const getActive = () => {
-    // get all active tasks
-    const activeTasks = taskData.filter((task) => task.isCompleted === false);
-    setFilteredData(activeTasks);
-    setActiveButton('ACTIVE');
-  };
-
-  const getCompleted = () => {
-    // get all completed tasks
-    const completedTasks = taskData.filter((task) => task.isCompleted === true);
-    setFilteredData(completedTasks);
-    setActiveButton('COMPLETED');
-  };
-
-  useEffect(() => {
-    setFilteredData(taskData);
-  }, []);
+  const {
+    getAll, getActive, getCompleted, activeFilter,
+  } = useContext(TaskContext);
 
   const filterBtn = [
     {
       key: 1,
       title: 'All',
-      isSelected: activeButton === 'ALL',
+      isSelected: activeFilter === 'ALL',
       onClick: getAll,
-      link: '',
     },
     {
       key: 2,
       title: 'Active',
-      isSelected: activeButton === 'ACTIVE',
+      isSelected: activeFilter === 'ACTIVE',
       onClick: getActive,
-      link: '',
     },
     {
       key: 3,
       title: 'Completed',
-      isSelected: activeButton === 'COMPLETED',
+      isSelected: activeFilter === 'COMPLETED',
       onClick: getCompleted,
-      link: '',
     },
   ];
 
