@@ -67,9 +67,9 @@ export const TaskProvider = (props) => {
           setFilteredData(sortedData);
           break;
       }
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
       setIsLoading(false);
     }
   }
@@ -78,10 +78,10 @@ export const TaskProvider = (props) => {
     try {
       setIsLoading(true);
       await axios.post(`${SERVER_URL}`, body);
-      setIsLoading(false);
       fetchData();
     } catch (err) {
       console.log(err);
+    } finally {
       setIsLoading(false);
     }
   }
@@ -90,10 +90,10 @@ export const TaskProvider = (props) => {
     try {
       setIsLoading(true);
       await axios.put(`${SERVER_URL}${body.id}`, body);
-      setIsLoading(false);
       fetchData();
     } catch (err) {
       console.log(err);
+    } finally {
       setIsLoading(false);
     }
   }
@@ -107,10 +107,10 @@ export const TaskProvider = (props) => {
       await axios.delete(`${SERVER_URL}${taskId}`, {
         params,
       });
-      setIsLoading(false);
       fetchData();
     } catch (err) {
       console.log(err);
+    } finally {
       setIsLoading(false);
     }
   }
