@@ -22,14 +22,6 @@ export const TaskProvider = (props) => {
     else setIsCompletedAll(true);
   };
 
-  // control loading screen
-  function triggerLoading() {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 900);
-  }
-
   // Filter data method
   const getAll = () => {
     // get all tasks
@@ -54,15 +46,27 @@ export const TaskProvider = (props) => {
   // Call API method
   async function fetchData() {
     try {
+      setIsLoading(true);
       const response = await axios.get(`${SERVER_URL}`);
-      triggerLoading();
+      setIsLoading(false);
       const sortedData = sortArray(response.data, {
         by: 'createdAt',
         order: 'desc',
       });
       setTaskData(sortedData);
-      if (activeFilter === 'ALL') {
-        setFilteredData(sortedData);
+      switch (activeFilter) {
+        case 'ALL':
+          setFilteredData(sortedData);
+          break;
+        case 'ACTIVE':
+          setFilteredData(sortedData.filter((task) => task.isCompleted === false));
+          break;
+        case 'COMPLETED':
+          setFilteredData(sortedData.filter((task) => task.isCompleted === true));
+          break;
+        default:
+          setFilteredData(sortedData);
+          break;
       }
     } catch (error) {
       console.log(error);
@@ -103,21 +107,13 @@ export const TaskProvider = (props) => {
 
   // modify data
   const toggleAllTasks = () => {
-    if (taskData.find(checkUncompleted)) {
-      taskData.forEach((task) => {
-        updateData({
-          id: task._id,
-          isCompleted: true,
-        });
+    findUncompleted();
+    taskData.forEach(({ _id: id }) => {
+      updateData({
+        id,
+        isCompleted: !isCompletedAll,
       });
-    } else {
-      taskData.forEach((task) => {
-        updateData({
-          id: task._id,
-          isCompleted: false,
-        });
-      });
-    }
+    });
   };
 
   useEffect(() => {
