@@ -127,6 +127,7 @@ export const TaskProvider = (props) => {
   return (
     <TaskContext.Provider
       value={{
+        activeFilter,
         isLoading,
         toggleAllTasks,
         filteredData,

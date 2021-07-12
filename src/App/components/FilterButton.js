@@ -21,7 +21,7 @@ const StyledFilterButton = styled.li`
 
 const FilterButtons = () => {
   const {
-    activeFilter, getAll, getActive, getCompleted,
+    getAll, getActive, getCompleted, activeFilter,
   } = useContext(TaskContext);
 
   const filterBtn = [
