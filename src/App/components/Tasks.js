@@ -21,7 +21,6 @@ const ListItem = styled.li`
   }
 
   &.editing {
-    border-bottom: none;
     padding: 0;
   }
 
@@ -31,6 +30,11 @@ const ListItem = styled.li`
     width: 83%;
     padding: 12px 16px;
     margin: 0 0 0 10%;
+    outline-width: 0;
+    border-top: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid #ededed;
+    border-left: 0px;
   }
 
   &.completed .data-label {
@@ -62,17 +66,19 @@ const Tasks = memo(() => {
   const [updatedText, setUpdatedText] = useState('');
   const ENTER = 'Enter';
 
-  const onEnter = (e) => {
+  const updateTask = (task) => {
+    if (updatedText !== task.title) {
+      updateData({
+        id: taskEditingId,
+        title: updatedText,
+      });
+    }
+    setTaskEditingId('');
+  };
+
+  const handleOnEnter = (e, task) => {
     if (e.key === ENTER) {
-      if (updatedText) {
-        updateData({
-          id: taskEditingId,
-          title: updatedText,
-        });
-        setTaskEditingId('');
-      } else {
-        setTaskEditingId('');
-      }
+      updateTask(task);
     }
   };
 
@@ -110,7 +116,8 @@ const Tasks = memo(() => {
                 type="text"
                 value={updatedText}
                 onChange={(e) => setUpdatedText(e.target.value)}
-                onKeyPress={(e) => onEnter(e)}
+                onKeyPress={(e) => handleOnEnter(e, task)}
+                onBlur={(e) => updateTask(task)}
               />
             </>
           )}
