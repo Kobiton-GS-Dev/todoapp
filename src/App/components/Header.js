@@ -49,13 +49,19 @@ const Header = () => {
   const [input, setInput] = useState('');
   const { postData } = useContext(TaskContext);
   const ENTER = 'Enter';
-  const onEnter = (e) => {
-    if (e.key === ENTER && input) {
+  const addData = () => {
+    if (input) {
       postData({
         title: input,
         isCompleted: false,
       });
-      setInput('');
+    }
+    setInput('');
+  };
+
+  const onEnter = (e) => {
+    if (e.key === ENTER) {
+      addData();
     }
   };
 
@@ -68,6 +74,7 @@ const Header = () => {
           setInput(e.target.value);
         }}
         onKeyPress={(e) => onEnter(e)}
+        onBlur={() => addData()}
         value={input}
       />
     </header>
