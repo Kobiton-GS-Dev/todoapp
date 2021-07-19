@@ -78,7 +78,7 @@ export const TaskProvider = (props) => {
     try {
       setIsLoading(true);
       await axios.post(`${SERVER_URL}`, body);
-      fetchData();
+      await fetchData();
     } catch (err) {
       console.log(err);
     } finally {
@@ -90,7 +90,7 @@ export const TaskProvider = (props) => {
     try {
       setIsLoading(true);
       await axios.put(`${SERVER_URL}${body.id}`, body);
-      fetchData();
+      await fetchData();
     } catch (err) {
       console.log(err);
     } finally {
@@ -107,7 +107,7 @@ export const TaskProvider = (props) => {
       await axios.delete(`${SERVER_URL}${taskId}`, {
         params,
       });
-      fetchData();
+      await fetchData();
     } catch (err) {
       console.log(err);
     } finally {

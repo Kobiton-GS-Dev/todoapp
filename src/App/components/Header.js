@@ -58,7 +58,6 @@ const Header = () => {
     }
     setInput('');
   };
-
   const onEnter = (e) => {
     if (e.key === ENTER) {
       addData();
