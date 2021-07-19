@@ -73,7 +73,7 @@ const Header = () => {
           setInput(e.target.value);
         }}
         onKeyPress={(e) => onEnter(e)}
-        onBlur={(e) => addData()}
+        onBlur={() => addData()}
         value={input}
       />
     </header>
