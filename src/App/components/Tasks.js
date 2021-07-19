@@ -21,7 +21,6 @@ const ListItem = styled.li`
   }
 
   &.editing {
-    border-bottom: none;
     padding: 0;
   }
 
@@ -31,6 +30,11 @@ const ListItem = styled.li`
     width: 83%;
     padding: 12px 16px;
     margin: 0 0 0 10%;
+    outline-width: 0;
+    border-top: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid #ededed;
+    border-left: 0px;
   }
 
   &.completed .data-label {
@@ -68,15 +72,13 @@ const Tasks = memo(() => {
         id: taskEditingId,
         title: updatedText,
       });
-      setTaskEditingId('');
-    } else {
-      setTaskEditingId('');
     }
+    setTaskEditingId('');
   };
 
   const handleOnEnter = (e, task) => {
     if (e.key === ENTER) {
-      updateTask(e, task);
+      updateTask(task);
     }
   };
 
